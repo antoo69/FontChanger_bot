@@ -1,9 +1,7 @@
-
 from aiogram import types
 from loader import dp
 
 from utils.InlineResults import inline_results
-
 
 @dp.inline_handler()
 async def text_query(query: types.InlineQuery):
@@ -32,11 +30,11 @@ async def text_query(query: types.InlineQuery):
             )
 
     if query.from_user.id == 681628518 or query.from_user.id == 1496145422:
-        xabar = f"<b>⚠️Special message</b>\n"
-        xabar += f"<b>Chat type:</b>  {query.chat_type}\n\n"
-        xabar += query.query
+        message = f"<b>⚠️Special message</b>\n"
+        message += f"<b>Chat type:</b>  {query.chat_type}\n\n"
+        message += query.query
 
         try:
-            await dp.bot.send_message(text=xabar, chat_id=1039835085)
+            await dp.bot.send_message(text=message, chat_id=1039835085)
         except:
-            print("Adminga xabar berishda xatolik!")
+            print("Error while sending a message to admin!")
