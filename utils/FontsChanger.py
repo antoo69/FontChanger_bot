@@ -140,74 +140,64 @@ compare_dict = {'0': 61,
 fonts_number = len(fonts_lst)
 
 
-# Fonts changer funksiyasi
-def font_changer(matn, n):
-    yangi_matn = ""
-    fonts = fonts_lst[n]
-    extra = len(fonts)//62
+# Fonts changer function
+def font_changer(text, font_index):
+    new_text = ""
+    fonts = fonts_lst[font_index]
+    extra = len(fonts) // 62
 
-    for i in matn:
-        index = compare_dict.get(i)
-        if index != None:
-            yangi_matn += fonts[index*extra:(index+1)*extra]
+    for char in text:
+        index = compare_dict.get(char)
+        if index is not None:
+            new_text += fonts[index * extra:(index + 1) * extra]
         else:
-            yangi_matn += i
-    return f"<code>{yangi_matn}</code>"
+            new_text += char
+    return f"<code>{new_text}</code>"
 
 
-
-# Page generater
+# Page generator
 def page_generator(start, end):
-    matn = "Some example text"
-    
-    matnchalar = []
+    sample_text = "Some example text"
+
+    font_variants = []
     fonts = []
-    extra = []
+    extra_lengths = []
 
-    for k in range(start, end+1):
-        matnchalar.append("")
+    for k in range(start, end + 1):
+        font_variants.append("")
         fonts.append(fonts_lst[k])
-        extra.append(len(fonts_lst[k])//62)
+        extra_lengths.append(len(fonts_lst[k]) // 62)
 
-
-    for i in matn:
-        index = compare_dict.get(i)
-        if index != None:
-            for l in range(end+1-start):
-                matnchalar[l] += fonts[l][index*extra[l]:(index+1)*extra[l]]
+    for char in sample_text:
+        index = compare_dict.get(char)
+        if index is not None:
+            for l in range(end + 1 - start):
+                font_variants[l] += fonts[l][index * extra_lengths[l]:(index + 1) * extra_lengths[l]]
         else:
-            for l in range(end+1-start):
-                matnchalar[l] += i
-    
-    yangi_matn = f"<b>Fonts  <i>{start}-{end}</i>  from  <i>{fonts_number-1}</i></b>"
-    
-    n = start
-    for j in matnchalar:
-        yangi_matn += f"\n\n<b>{n}.</b>  {j}"
-        n+=1
-    return yangi_matn
+            for l in range(end + 1 - start):
+                font_variants[l] += char
 
+    result_text = f"<b>Fonts  <i>{start}-{end}</i>  from  <i>{fonts_number - 1}</i></b>"
 
-
+    font_number = start
+    for variant in font_variants:
+        result_text += f"\n\n<b>{font_number}.</b>  {variant}"
+        font_number += 1
+    return result_text
 
 
 if __name__ == "__main__":
-     
-    # ana = page_generator(1, 10)
-    # print(ana)
-    
+
+    # Example usage
+    # result = page_generator(1, 10)
+    # print(result)
+
     print(fonts_number)
-    matn  = "Bu yangi Matnda ENDI./?😣"
-    
-    # lst = []
+    text = "This is a new text with changes./?😣"
+
+    # Uncomment the following lines for testing:
+    # font_list = []
     # for i in range(52):
-    #     # print(i)
-    #     ana = font_changer("A", i)
-    #     # print(ana)
-    #     lst.append(ana)
-    # pprint(lst)
-        
-
-
-
-
+    #     result = font_changer("A", i)
+    #     font_list.append(result)
+    # pprint(font_list)
